@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="title">SEO-проверка текста</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lang-switcher {
+      display: flex;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      color: #64748b;
+      transition: 0.2s;
+    }
+
+    .lang-btn.active {
+      background: #1d4ed8;
+      color: white;
+    }
+
+    .lang-btn:hover:not(.active) {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .header {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 84px;
+      margin: 0;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 2px solid #e5e7eb;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      backdrop-filter: blur(12px);
+    }
+
+    .eyebrow {
+      margin: 0 0 2px;
+      color: #64748b;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .header h1 {
+      font-family: 'Russo One', sans-serif;
+      font-size: 30px;
+      letter-spacing: 0.5px;
+      margin: 0;
+      color: #0f172a;
+      text-transform: uppercase;
+    }
+
+    .headerActions button.primary {
+      background: #1d4ed8;
+      border-color: #1e40af;
+      color: white;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+      text-transform: uppercase;
+      font-family: 'Russo One', sans-serif;
+      font-size: 15px;
+      letter-spacing: 1px;
+      padding: 10px 20px;
+    }
+
+    .headerActions button.primary:hover {
+      background: #1e40af;
+      transform: translateY(-2px);
+    }
+
+    .headerActions button#sampleBtn {
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: #334155;
+      font-weight: 700;
+      border-radius: 8px;
+    }
+
+    .headerActions button#sampleBtn:hover {
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-icon {
+      font-size: 40px;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+    }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <header class="header">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <div class="logo-icon">🦈</div>
+        <div>
+          <p class="eyebrow" data-i18n="header_subtitle">Локальный SEO-редактор</p>
+          <h1 data-i18n="title">SEO-проверка текста</h1>
+        </div>
+      </div>
+      <div class="headerActions" style="display:-webkit-box; display: flex; align-items: center; gap: 16px;">
+        <div class="lang-switcher">
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
+        </div>
+        <a href="instruction.html" target="_blank"
+          style="text-decoration: none; font-weight: 800; font-size: 14px; color: #475569; padding: 0 8px; font-family: 'Inter', sans-serif;"
+          data-i18n="btn_instructions">Инструкция 📚</a>
+        <button id="sampleBtn" type="button" data-i18n="btn_demo">Демо</button>
+        <button id="analyzeBtn" class="primary" type="button" data-i18n="btn_check">Проверить</button>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="leftPane">
+        <div class="paneHeader">
+          <h2 data-i18n="pane_text">Текст</h2>
+          <div class="smallActions">
+            <button id="inferBtn" type="button" data-i18n="btn_infer_structure">Распознать структуру</button>
+            <button id="clearBtn" type="button" data-i18n="btn_clear">Очистить</button>
+          </div>
+        </div>
+        <div id="editor" class="editor" contenteditable="true" spellcheck="true">
+          <h1 data-i18n="editor_placeholder_title">Вставьте текст сюда</h1>
+          <p data-i18n="editor_placeholder_desc">Можно вставлять из Google Docs, Word, WordPress или обычный текст. Если
+            заголовки потерялись, нажмите "Распознать структуру".</p>
+        </div>
+      </aside>
+
+      <aside class="rightPane">
+        <nav class="tabs" aria-label="Разделы отчета">
+          <button class="tab active" data-tab="summary" type="button" data-i18n="tab_summary">Сводка</button>
+          <button class="tab" data-tab="keywords" type="button" data-i18n="tab_keywords">Ключи</button>
+          <button class="tab" data-tab="structure" type="button" data-i18n="tab_structure">Структура</button>
+          <button class="tab" data-tab="issues" type="button" data-i18n="tab_issues">Проблемы</button>
+          <button class="tab" data-tab="all-semantics" type="button" data-i18n="tab_all_semantics">Вся
+            семантика</button>
+          <button class="tab" data-tab="settings" type="button" data-i18n="tab_settings">Настройки</button>
+        </nav>
+
+        <section id="summary" class="panel active">
+          <div class="stats">
+            <article><span data-i18n="stat_chars">Символы</span><strong id="charsWithSpaces">0</strong></article>
+            <article><span data-i18n="stat_sbt">СБП</span><strong id="charsNoSpaces">0</strong></article>
+            <article><span data-i18n="stat_words">Слова</span><strong id="wordsCount">0</strong></article>
+            <article><span data-i18n="stat_blocks">Блоки</span><strong id="blocksCount">0</strong></article>
+            <article><span data-i18n="stat_h1">H1</span><strong id="h1Count">0</strong></article>
+            <article><span data-i18n="stat_lists">Списки</span><strong id="listCount">0</strong></article>
+            <article><span data-i18n="stat_keys_ok">Ключи OK</span><strong id="okCount">0</strong></article>
+            <article><span data-i18n="stat_issues">Проблемы</span><strong id="issueCount">0</strong></article>
+          </div>
+          <div class="volumeLine">
+            <label><span data-i18n="label_target_volume">Объем СБП по ТЗ</span> <input id="targetVolume" type="number"
+                min="0" placeholder="8000"></label>
+            <p id="volumeState" data-i18n="msg_no_target_volume">Целевой объем не указан.</p>
+          </div>
+        </section>
+
+        <section id="keywords" class="panel">
+          <div class="toolbar">
+            <button id="markKeywordsBtn" type="button" data-i18n="btn_highlight_keys">Подсветить ключи</button>
+            <button id="clearMarksBtn" type="button" data-i18n="btn_clear_highlight">Снять подсветку</button>
+            <button id="csvBtn" type="button" data-i18n="btn_csv">CSV</button>
+          </div>
+          <div class="keywordMeta">
+            <p class="panelHint" data-i18n="hint_highlight">На больших текстах автоподсветка показывает только переспам
+              и запрещенные ключи. Кнопка подсветит все.</p>
+            <div id="keywordTotal" class="keywordTotal"><span data-i18n="total_occurrences">Вхождения: 0/0</span></div>
+          </div>
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="th_key">Ключ</th>
+                  <th data-i18n="th_required">Нужно</th>
+                  <th data-i18n="th_found">Найдено</th>
+                  <th data-i18n="th_status">Статус</th>
+                  <th data-i18n="th_density">Плотность</th>
+                </tr>
+              </thead>
+              <tbody id="keywordRows">
+                <tr>
+                  <td colspan="5" class="empty" data-i18n="empty_keys">Добавьте ключи в настройках.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="structure" class="panel">
+          <div class="toolbar">
+            <button id="copyHtmlBtn" type="button" data-i18n="btn_copy_html">Скопировать HTML для WP</button>
+            <button id="copyTextBtn" type="button" data-i18n="btn_copy_text">Скопировать текст</button>
+          </div>
+          <div id="structureTree" class="structureTree" data-i18n="empty_structure">
+            Структура появится после проверки.
+          </div>
+        </section>
+
+        <section id="issues" class="panel">
+          <ul id="issuesList" class="issues">
+            <li data-i18n="empty_issues">Проблемы появятся после проверки.</li>
+          </ul>
+        </section>
+
+        <section id="all-semantics" class="panel">
+          <div class="pasteBox dangerBox">
+            <div class="pasteHeader">
+              <div>
+                <h2 data-i18n="all_sem_title">Вся семантика проекта</h2>
+                <p data-i18n="all_sem_desc">Вставьте общий список ключей. Если такой ключ найден в тексте, но его нет в
+                  текущих ключах страницы, он станет триггером.</p>
+              </div>
+              <button id="parseAllSemanticsBtn" type="button" data-i18n="btn_update">Обновить</button>
+            </div>
+            <textarea id="allSemanticsInput" spellcheck="false" data-i18n="all_sem_placeholder"
+              placeholder="Можно вставить один столбец, строки из Sheets или таблицу целиком."></textarea>
+          </div>
+
+          <div class="keywordPreview">
+            <div class="pasteHeader">
+              <div>
+                <h2 data-i18n="foreign_keys_title">Чужие ключи в тексте</h2>
+                <p id="foreignKeywordState" data-i18n="foreign_keys_empty">Пока не найдено.</p>
+              </div>
+              <button id="clearAllSemanticsBtn" type="button" data-i18n="btn_clear_sem">Очистить семантику</button>
+            </div>
+            <div class="tableWrap compact">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="th_key">Ключ</th>
+                    <th data-i18n="th_found">Найдено</th>
+                    <th data-i18n="th_line">Строка</th>
+                    <th data-i18n="th_status">Статус</th>
+                  </tr>
+                </thead>
+                <tbody id="foreignKeywordRows">
+                  <tr>
+                    <td colspan="4" class="empty" data-i18n="empty_foreign">Чужие ключи появятся после проверки.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="settings" class="panel">
+          <div class="pasteBox">
+            <div class="pasteHeader">
+              <div>
+                <h2 data-i18n="settings_table_title">Ключи из таблицы</h2>
+                <p data-i18n="settings_table_desc">Просто скопируйте строки из Google Sheets и вставьте сюда. Шапка не
+                  обязательна.</p>
+              </div>
+              <button id="parseSheetBtn" type="button" data-i18n="btn_update">Обновить</button>
+            </div>
+            <textarea id="sheetPasteInput" spellcheck="false"></textarea>
+          </div>
+
+          <details class="mappingBox" id="mappingDetails">
+            <summary data-i18n="mapping_title">Маппинг колонок</summary>
+            <p class="hint" data-i18n="mapping_hint">Обычно не нужен. Откройте только если приложение неправильно
+              определило колонки.</p>
+            <div class="mappingGrid">
+              <label><span data-i18n="map_page">Страница</span> <select id="pageColumn"></select></label>
+              <label><span data-i18n="map_key">Ключ</span> <select id="keywordColumn"></select></label>
+              <label><span data-i18n="map_volume">Частотность</span> <select id="volumeColumn"></select></label>
+              <label><span data-i18n="map_comment">Комментарий</span> <select id="commentColumn"></select></label>
+              <label><span data-i18n="map_text_volume">Объем текста</span> <select
+                  id="textVolumeColumn"></select></label>
+              <label><span data-i18n="map_required">Вхождения</span> <select id="requiredColumn"></select></label>
+            </div>
+          </details>
+
+          <div class="keywordPreview">
+            <div class="pasteHeader">
+              <div>
+                <h2 data-i18n="preview_title">Предпросмотр ключей</h2>
+                <p id="keywordPreviewState" data-i18n="preview_empty">Пока ничего не распознано.</p>
+              </div>
+              <button id="clearSheetBtn" type="button" data-i18n="btn_clear_keys">Очистить ключи</button>
+            </div>
+            <div class="tableWrap compact">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="th_key">Ключ</th>
+                    <th data-i18n="map_volume">Частотность</th>
+                    <th data-i18n="map_required">Вхождения</th>
+                    <th data-i18n="map_comment">Тип</th>
+                  </tr>
+                </thead>
+                <tbody id="keywordPreviewRows">
+                  <tr>
+                    <td colspan="5" class="empty" data-i18n="preview_empty_table">Вставьте таблицу выше.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <details class="legacyBox">
+            <summary data-i18n="legacy_format_title">Ручной формат через |</summary>
+            <label class="field">
+              Ключи
+              <textarea id="keywordInput" spellcheck="false"
+                placeholder="ключ | минимум | максимум | тип | комментарий"></textarea>
+            </label>
+          </details>
+
+          <div class="settingsGrid">
+            <label><span data-i18n="settings_match_mode">Режим поиска</span>
+              <select id="matchMode">
+                <option value="exact" data-i18n="match_exact">Точное совпадение</option>
+                <option value="broad" data-i18n="match_broad">Широкое совпадение</option>
+              </select>
+            </label>
+            <label><span data-i18n="settings_count_mode">Режим подсчета</span>
+              <select id="countMode" data-i18n-title="count_strict" title="Strict Exact Match">
+                <option value="strict" data-i18n="count_strict">Strict Exact Match</option>
+                <option value="independent" data-i18n="count_independent">Independent Exact Match</option>
+                <option value="broad" disabled data-i18n="match_broad">Broad Match</option>
+              </select>
+            </label>
+            <label><span data-i18n="settings_case_mode">Регистр</span>
+              <select id="caseMode">
+                <option value="insensitive" data-i18n="case_insensitive">Не учитывать</option>
+                <option value="sensitive" data-i18n="case_sensitive">Учитывать</option>
+              </select>
+            </label>
+            <label><span data-i18n="settings_punctuation_mode">Пунктуация</span>
+              <select id="punctuationMode">
+                <option value="ignore" data-i18n="punct_ignore">Игнорировать</option>
+                <option value="respect" data-i18n="punct_respect">Учитывать</option>
+              </select>
+            </label>
+          </div>
+          <div class="toolbar">
+            <button id="saveBtn" type="button" data-i18n="btn_save">Сохранить</button>
+            <button id="demoKeysBtn" type="button" data-i18n="btn_demo_keys">Демо-ключи</button>
+          </div>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script src="i18n.js"></script>
+  <script src="../analyzer.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>

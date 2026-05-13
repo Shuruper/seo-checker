@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SEO Keyword Checker</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>SEO Keyword Checker</h1>
+          <p id="docState">Google Docs: ожидание</p>
+        </div>
+        <button id="checkBtn" class="primary" type="button">Проверить</button>
+      </header>
+
+      <nav class="tabs" aria-label="Разделы">
+        <button class="tab active" data-tab="summary" type="button">Summary</button>
+        <button class="tab" data-tab="keywords" type="button">Keywords</button>
+        <button class="tab" data-tab="issues" type="button">Issues</button>
+        <button class="tab" data-tab="settings" type="button">Settings</button>
+      </nav>
+
+      <section id="summary" class="panel active">
+        <div class="grid stats">
+          <article><span>Символы</span><strong id="charsWithSpaces">0</strong></article>
+          <article><span>Без пробелов</span><strong id="charsNoSpaces">0</strong></article>
+          <article><span>Слова</span><strong id="wordsCount">0</strong></article>
+          <article><span>Ключей OK</span><strong id="okCount">0</strong></article>
+          <article><span>Отсутствует</span><strong id="missingCount">0</strong></article>
+          <article><span>Ниже нормы</span><strong id="lowCount">0</strong></article>
+          <article><span>Переспам</span><strong id="overCount">0</strong></article>
+          <article><span>Запрещенных</span><strong id="forbiddenCount">0</strong></article>
+        </div>
+        <div class="volume">
+          <label for="targetVolume">Объем текста СБП</label>
+          <input id="targetVolume" type="number" min="0" placeholder="Например 8000">
+          <p id="volumeState">Укажите целевой объем, чтобы увидеть отклонение.</p>
+        </div>
+      </section>
+
+      <section id="keywords" class="panel">
+        <div class="toolbar">
+          <button id="highlightAllBtn" type="button">Подсветить все</button>
+          <button id="clearHighlightsBtn" type="button">Снять подсветку</button>
+          <button id="exportCsvBtn" type="button">CSV</button>
+        </div>
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Keyword</th>
+                <th>Required</th>
+                <th>Found</th>
+                <th>Status</th>
+                <th>Density</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="keywordRows">
+              <tr><td colspan="6" class="empty">Добавьте ключи в Settings и нажмите Проверить.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="issues" class="panel">
+        <ul id="issuesList" class="issues">
+          <li>Проблемы появятся после проверки.</li>
+        </ul>
+      </section>
+
+      <section id="settings" class="panel">
+        <label for="keywordInput">Ключи</label>
+        <textarea id="keywordInput" spellcheck="false" placeholder="Формат: keyword | min | max | type | comment&#10;vegastars casino | 8 | 11 | primary | главный ключ&#10;vegastars pokies | 3 | 5 | secondary |&#10;bad brand | 0 | 0 | forbidden | чужой интент"></textarea>
+
+        <div class="settingsGrid">
+          <label>
+            Match mode
+            <select id="matchMode">
+              <option value="exact">Exact match</option>
+              <option value="broad">Broad match</option>
+            </select>
+          </label>
+          <label>
+            Case
+            <select id="caseMode">
+              <option value="insensitive">Не учитывать регистр</option>
+              <option value="sensitive">Учитывать регистр</option>
+            </select>
+          </label>
+          <label>
+            Punctuation
+            <select id="punctuationMode">
+              <option value="ignore">Игнорировать пунктуацию</option>
+              <option value="respect">Учитывать пунктуацию</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="toolbar">
+          <button id="saveSettingsBtn" type="button">Сохранить</button>
+          <button id="loadDemoBtn" type="button">Демо-ключи</button>
+        </div>
+      </section>
+    </main>
+    <script src="analyzer.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

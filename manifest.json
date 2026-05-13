@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "SEO Keyword Checker",
+  "description": "Checks keyword usage in Google Docs and prepares SEO content reports.",
+  "version": "0.1.0",
+  "action": {
+    "default_title": "SEO Keyword Checker",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://docs.google.com/document/*",
+    "https://*.live.com/*",
+    "https://*.office.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://docs.google.com/document/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="instructions_title">SEO Editor Instructions / Инструкция</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f9fbfd;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #111827;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .lang-btn {
+            background: #e5e7eb;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: #2563eb;
+            color: #fff;
+        }
+
+        .card {
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .ru-content,
+        .en-content {
+            display: none;
+        }
+
+        [data-lang="ru"] .ru-content {
+            display: block;
+        }
+
+        [data-lang="en"] .en-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="lang-switcher">
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">🇬🇧 English</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">🇷🇺 Русский</button>
+    </div>
+
+    <div id="contentWrapper">
+        <!-- Russian Content -->
+        <div class="ru-content">
+            <h1>Инструкция к локальному SEO-редактору</h1>
+
+            <div class="card">
+                <h2>Что делает эта программа?</h2>
+                <p>Это инструмент для профессиональной проверки SEO-текстов. Программа полностью работает в вашем
+                    браузере, мгновенно подсвечивает ключи из ТЗ (технического задания) и вычисляет переспам. Программа
+                    создана для того, чтобы убрать рутину при вписывании сложных ключей и проверке готовых текстов от
+                    копирайтеров.</p>
+                <ul>
+                    <li><strong>Распознавание структуры:</strong> Автоматически конвертирует заголовки (<code>##</code>,
+                        <code>###</code>), таблицы (<code>| Код | Значение |</code>) и списки в чистый HTML-стандарт для
+                        CMS (например, WordPress). Спецсимволы Markdown аккуратно удаляются.</li>
+                    <li><strong>Строгий подсчет (Strict Exact Match):</strong> Считает вхождения так, как они есть. Если
+                        у вас прописан ключ "vegastars", а в тексте есть "vegastars casino", счетчик не будет
+                        засчитывать короткое слово как независимое. Это исключает искусственный переспам!</li>
+                    <li><strong>Проверка чужой семантики ("Каннибализация"):</strong> Позволяет загрузить все ключи
+                        проекта. Редактор предупредит, если автор вписал в эту статью ключи, предназначенные для
+                        соседней страницы ресурса.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>Как вставлять ключи (Таблица ТЗ)</h2>
+                <p>Идеальный формат работы программыстроен на Google Таблицах (Шитах). Если ваше SEO ТЗ сделано в
+                    таблице, вам больше не нужно ничего выписывать руками.</p>
+                <ol>
+                    <li>В Google Sheets выделите прямоугольную область ключей — можно прямо с шапкой
+                        (<code>Keyword</code>, <code>Volume</code>, <code>Объем текста</code>, <code>Вхождения</code>).
+                    </li>
+                    <li>Нажмите <strong>Ctrl + C</strong>.</li>
+                    <li>Перейдите во вкладку <strong>Настройки</strong> в программе и вставьте (<strong>Ctrl +
+                            V</strong>) в поле <strong>"Ключи из таблицы"</strong>.</li>
+                </ol>
+                <p><strong>Супер-фишка:</strong> Программа сама угадает, где у вас объем текста (например,
+                    <code>~15000</code>), где частотность, а где количество вхождений. Просто вставьте таблицу, и
+                    приложение автоматически все пересчитает и заполнит!</p>
+            </div>
+
+            <div class="card">
+                <h2>Настройки</h2>
+                <ul>
+                    <li><strong>Режим подсчета (Strict Exact Match):</strong> Ключ считается найденным, только если он
+                        не является частью более длинного запрашиваемого ключа.</li>
+                    <li><strong>Independent Exact Match:</strong> Независимый подсчет: длинные и короткие ключи
+                        считаются одновременно.</li>
+                    <li><strong>Режим регистра (Учитывать / Не учитывать):</strong> При строгом регистре <i>Apple</i> и
+                        <i>apple</i> будут разными ключами.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- English Content -->
+        <div class="en-content">
+            <h1>Local SEO Editor Instructions</h1>
+
+            <div class="card">
+                <h2>What does this program do?</h2>
+                <p>This is an internal tool for professional SEO content auditing. It runs entirely locally in your
+                    browser, instantly highlighting technical requirements (keywords) and calculating overuse (spam
+                    density). It removes the manual hassle of matching complex keywords and validating copywriter texts.
+                </p>
+                <ul>
+                    <li><strong>Structure Parsing:</strong> It automatically converts Markdown-like headings
+                        (<code>##</code>, <code>###</code>), tables (<code>| Col | Val |</code>) and lists into raw
+                        standard HTML elements perfect for WordPress pasting. All dashes and hashes are cleaned.</li>
+                    <li><strong>Strict Exact Match Mode:</strong> Follows a "longest match wins" logic. If you search
+                        for "vegastars" and "vegastars casino", finding the latter will NOT falsely inflate the count of
+                        "vegastars". Prevents overlap spam warnings!</li>
+                    <li><strong>Global Semantic Tracking:</strong> Paste the full project keyword tree into the "All
+                        Semantics" tab. If the author accidentally uses a keyword meant for a completely different page,
+                        it highlights as a "Foreign Key" error.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>How to paste Keywords (Spreadsheet format)</h2>
+                <p>The program is natively built to understand Google Spreadsheets and Excel.</p>
+                <ol>
+                    <li>Open your Google Sheet and select the block containing your SEO target — you can include the
+                        headers or exclude them, it doesn't matter.</li>
+                    <li>Press <strong>Ctrl + C</strong>.</li>
+                    <li>Go to the <strong>Settings</strong> tab in the app and press <strong>Ctrl + V</strong> in the
+                        <strong>"Keywords from Spreadsheet"</strong> field.</li>
+                </ol>
+                <p><strong>Magic Auto-Detect:</strong> The app will automatically figure out which column is the Target
+                    Text Volume (e.g. <code>~15000</code>), Search Volume, and Required Occurrences. Just paste the
+                    matrix, and the app recalculates everything instantly!</p>
+            </div>
+
+            <div class="card">
+                <h2>App Settings</h2>
+                <ul>
+                    <li><strong>Counting Mode (Strict Exact Match):</strong> Core mode. A key is counted only if it
+                        stands alone. If it sits inside a longer tracked key, it stays grouped.</li>
+                    <li><strong>Independent Exact Match:</strong> Fallback mode where overlap boundaries are disabled
+                        and every key counts simultaneously.</li>
+                    <li><strong>Case Sensitivity:</strong> Treats <i>Apple</i> and <i>apple</i> as completely
+                        independent exact phrase queries when activated.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="i18n.js"></script>
+    <script>
+        document.title = t("instructions_title");
+        document.body.setAttribute('data-lang', currentLang);
+        const originalSetLang = window.setLang;
+        window.setLang = function (lang) {
+            originalSetLang(lang);
+            document.body.setAttribute('data-lang', lang);
+        }
+    </script>
+</body>
+
+</html>

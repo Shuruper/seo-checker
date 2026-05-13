@@ -1,0 +1,268 @@
+:root {
+  color-scheme: light;
+  --bg: #f7f8fa;
+  --panel: #ffffff;
+  --text: #17202a;
+  --muted: #637083;
+  --line: #d9dee7;
+  --primary: #1769e0;
+  --ok: #16794c;
+  --low: #9a6a00;
+  --over: #b42318;
+  --forbidden: #111827;
+  --soft-blue: #eaf2ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 760px;
+  min-height: 560px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.45 Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: #9fb5d6;
+}
+
+.primary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+}
+
+.app {
+  padding: 14px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.topbar p {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 12px;
+}
+
+.tab {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 12px;
+}
+
+.tab.active {
+  border-bottom-color: var(--primary);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  gap: 8px;
+}
+
+.stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stats article,
+.volume,
+.tableWrap,
+.issues,
+textarea,
+.settingsGrid label {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.stats article {
+  padding: 10px;
+}
+
+.stats span {
+  display: block;
+  color: var(--muted);
+}
+
+.stats strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 20px;
+}
+
+.volume {
+  margin-top: 10px;
+  padding: 12px;
+}
+
+.volume label,
+label[for="keywordInput"] {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.volume input {
+  width: 160px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 7px 8px;
+}
+
+.volume p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tableWrap {
+  max-height: 380px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: #f9fafc;
+  z-index: 1;
+}
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 72px;
+  border-radius: 999px;
+  padding: 3px 8px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.status-ok { background: #e8f6ef; color: var(--ok); }
+.status-low { background: #fff7db; color: var(--low); }
+.status-missing { background: #fff1d6; color: var(--low); }
+.status-overused { background: #fee4e2; color: var(--over); }
+.status-forbidden { background: #e5e7eb; color: var(--forbidden); }
+.status-not-tracked { background: var(--soft-blue); color: #194b8f; }
+
+.rowActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rowActions button {
+  padding: 5px 7px;
+}
+
+.issues {
+  margin: 0;
+  padding: 10px 10px 10px 28px;
+}
+
+.issues li {
+  margin: 6px 0;
+}
+
+textarea {
+  width: 100%;
+  height: 230px;
+  padding: 10px;
+  resize: vertical;
+}
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.settingsGrid label {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 7px 8px;
+  background: #fff;
+  color: var(--text);
+  font-weight: 400;
+}
